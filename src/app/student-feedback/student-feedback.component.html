@@ -1,0 +1,73 @@
+<p>student-feedback works!</p>
+<div>
+    <form #feedbackForm="ngForm" (ngSubmit)="onSubmit(feedbackForm)" novalidate>
+      <!-- Student Name -->
+      <div>
+        <label for="studentName">Student Name:</label>
+        <input 
+          type="text" 
+          id="studentName" 
+          name="studentName" 
+          [(ngModel)]="studentName" 
+          required 
+          #name="ngModel"
+          placeholder="Enter your name"
+        />
+        <div *ngIf="name.invalid && name.touched" class="error">Name is required</div>
+      </div>
+  
+      <!-- Batch Number -->
+      <div>
+        <label for="batchNumber">Batch Number:</label>
+        <input 
+          type="number" 
+          id="batchNumber" 
+          name="batchNumber" 
+          [(ngModel)]="batchNumber" 
+          required 
+          #batch="ngModel"
+          placeholder="Enter batch number"
+        />
+        <div *ngIf="batch.invalid && batch.touched" class="error">Batch number is required</div>
+      </div>
+  
+      <!-- Feedback -->
+      <div>
+        <label for="feedback">Feedback:</label>
+        <textarea 
+          id="feedback" 
+          name="feedback" 
+          [(ngModel)]="feedbackText" 
+          required 
+          #feedback="ngModel"
+          placeholder="Enter your feedback"
+        ></textarea>
+        <div *ngIf="feedback.invalid && feedback.touched" class="error">Feedback is required</div>
+      </div>
+  
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="feedbackForm.invalid">Submit Feedback</button>
+    </form>
+  
+    <!-- Display Submitted Feedback in Table -->
+    <div *ngIf="submittedFeedback.length > 0">
+      <h3>Submitted Feedback</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Batch Number</th>
+            <th>Feedback</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let feedback of submittedFeedback">
+            <td>{{ feedback.name }}</td>
+            <td>{{ feedback.batch }}</td>
+            <td>{{ feedback.feedback }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
